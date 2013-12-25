@@ -24,7 +24,7 @@ module.exports = function(grunt)
 
         this.data.files.forEach(function(fset)
         {
-            var svg = grunt.file.expand(fset.src);
+            var svg = grunt.file.expand(fset, fset.src);
 
             svg.forEach(function(svg)
             {
