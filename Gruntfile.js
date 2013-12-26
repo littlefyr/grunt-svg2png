@@ -13,7 +13,13 @@ module.exports = function(grunt)
     var fs = require('fs'),
         path = require('path'),
         checksum = require('checksum'),
-        stamp = JSON.parse(fs.readFileSync('stamp.json', 'utf8'));
+        stamp = {};
+
+    fs.exists('stamp.json', function(exists) {
+        if (exists) {
+            stamp = JSON.parse(fs.readFileSync('stamp.json', 'utf8'));
+        }
+    });
 
     function onlyChanged(filepath) {
         var file = path.resolve(filepath);
