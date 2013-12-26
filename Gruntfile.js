@@ -10,6 +10,16 @@
 
 module.exports = function(grunt)
 {
+    var fs = require('fs'),
+        path = require('path'),
+        checksum = require('checksum'),
+        stamp = JSON.parse(fs.readFileSync('stamp.json', 'utf8'));
+
+    function onlyChanged(filepath) {
+        var file = path.resolve(filepath);
+
+        return stamp[file] !== checksum(file);
+    }
 
     grunt.initConfig({
 
@@ -37,6 +47,14 @@ module.exports = function(grunt)
                 files: [
                     { src: ['test/**/*.svg'], dest: 'test/png/' }
                 ]
+            },
+            filtered: {
+                options: {
+                    stamp: 'stamp.json'
+                },
+                files: [
+                    { src: ['test/**/*.svg'], dest: 'test/png/', filter: onlyChanged }
+                ],
             }
         }
 

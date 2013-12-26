@@ -9,7 +9,9 @@
 'use strict';
 
 var phantomjs = require('phantomjs'),
-    path = require('path');
+    path = require('path'),
+    checksum = require('checksum'),
+    fs = require('fs');
 
 module.exports = function(grunt)
 {
@@ -20,7 +22,10 @@ module.exports = function(grunt)
             start = new Date(),
             completed = 0,
             files = [],
-            total = 0;
+            total = 0,
+            options = this.data.options,
+            stamp = options && options.stamp ? options.stamp : false,
+            stampResult = {};
 
         this.data.files.forEach(function(fset)
         {
@@ -29,7 +34,8 @@ module.exports = function(grunt)
             svg.forEach(function(svg)
             {
                 var src = path.resolve(svg),
-                    dest;
+                    dest,
+                    settings;
 
                 if (fset.dest) {
                     dest = path.resolve(fset.dest) + '/' + path.basename(svg);
@@ -37,10 +43,16 @@ module.exports = function(grunt)
                     dest = src;
                 }
 
-                files.push({
+                settings = {
                     src: src,
                     dest: dest.replace(/\.svg$/i, '.png')
-                });
+                };
+
+                if (stamp) {
+                    stampResult[src] = checksum(src);
+                }
+
+                files.push(settings);
             });
 
             total = files.length;
@@ -102,8 +114,16 @@ module.exports = function(grunt)
             },
             function(err, result, code)
             {
-                grunt.log.write("\n");
-                grunt.log.ok("Rasterization complete.");
+                grunt.log.write('\n');
+                grunt.log.ok('Rasterization complete.');
+
+                if (stamp) {
+                    fs.writeFile(stamp, JSON.stringify(stampResult));
+                    grunt.log.ok(stamp + ' was generated.');
+                }
+
+                grunt.log.write(result);
+
                 done();
             }
         );
