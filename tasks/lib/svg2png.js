@@ -41,7 +41,7 @@ var nextFile = function()
     page.open(file.src, function(status)
     {
         page.render(file.dest);
-        // console.log(JSON.stringify({ 'file': file, 'status': status, 'args': phantom.args[2] }));
+        console.log(JSON.stringify({ 'file': file, 'status': status }));
         nextFile();
     });
 };

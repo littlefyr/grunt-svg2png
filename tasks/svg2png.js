@@ -122,8 +122,6 @@ module.exports = function(grunt)
                     grunt.log.ok(stamp + ' was generated.');
                 }
 
-                grunt.log.write(result);
-
                 done();
             }
         );

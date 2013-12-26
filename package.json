@@ -1,5 +1,5 @@
 {
-  "name": "grunt-svgToPng",
+  "name": "grunt-svg-to-png",
   "description": "Grunt plugin to rasterize SVG to PNG images using PhantomJS. Fork of grunt-svg2png by dbushell.",
   "version": "0.2.1",
   "author": {
