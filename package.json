@@ -1,19 +1,19 @@
 {
-  "name": "grunt-svg2png",
+  "name": "grunt-svgToPng",
   "description": "Grunt plugin to rasterize SVG to PNG images using PhantomJS",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
-    "name": "David Bushell",
-    "email": "hi@dbushell.com",
-    "url": "http://dbushell.com/"
+    "name": "David Bushell, Tim Chaptykov",
+    "email": "tim.chaptykov@gmail.com",
+    "url": "http://chaptykov.ru"
   },
   "homepage": "https://github.com/dbushell/grunt-svg2png",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dbushell/grunt-svg2png.git"
+    "url": "git://github.com/chaptykov/grunt-svg2png.git"
   },
   "bugs": {
-    "url": "https://github.com/dbushell/grunt-svg2png/issues"
+    "url": "github.com/chaptykov/grunt-svg2png/issues"
   },
   "main": "Gruntfile.js",
   "engines": {
@@ -52,12 +52,15 @@
     {
       "name": "David Bushell",
       "url": "http://dbushell.com/"
+    }, {
+      "name": "Tim Chaptykov",
+      "url": "http://chaptykov.ru"
     }
   ],
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://raw.github.com/dbushell/grunt-svg2png/master/LICENSE.txt"
+      "url": "https://raw.github.com/chaptykov/grunt-svg2png/master/LICENSE.txt"
     }
   ]
 }
