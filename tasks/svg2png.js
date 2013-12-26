@@ -10,7 +10,6 @@
 
 var phantomjs = require('phantomjs'),
     path = require('path'),
-    checksum = require('checksum'),
     fs = require('fs');
 
 module.exports = function(grunt)
@@ -22,10 +21,7 @@ module.exports = function(grunt)
             start = new Date(),
             completed = 0,
             files = [],
-            total = 0,
-            options = this.data.options,
-            stamp = options && options.stamp ? options.stamp : false,
-            stampResult = {};
+            total = 0;
 
         this.data.files.forEach(function(fset)
         {
@@ -47,10 +43,6 @@ module.exports = function(grunt)
                     src: src,
                     dest: dest.replace(/\.svg$/i, '.png')
                 };
-
-                if (stamp) {
-                    stampResult[src] = checksum(src);
-                }
 
                 files.push(settings);
             });
@@ -116,12 +108,6 @@ module.exports = function(grunt)
             {
                 grunt.log.write('\n');
                 grunt.log.ok('Rasterization complete.');
-
-                if (stamp) {
-                    fs.writeFile(stamp, JSON.stringify(stampResult));
-                    grunt.log.ok(stamp + ' was generated.');
-                }
-
                 done();
             }
         );
