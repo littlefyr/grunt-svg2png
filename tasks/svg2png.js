@@ -25,6 +25,22 @@ module.exports = function(grunt)
             total = 0,
             tempFile;
 
+        // Write parameters to file
+        function writeTemporaryFile() {
+            tempFile = os.tmpdir().split(path.sep);
+
+            if (!tempFile[tempFile.length - 1]) {
+                tempFile.pop();
+            }
+
+            tempFile.push('rasterizing-settings.json');
+            tempFile = tempFile.join(path.sep);
+
+            fs.writeFileSync(tempFile, JSON.stringify(files));
+
+            return tempFile;
+        }
+
         this.data.files.forEach(function(fset)
         {
             var svg = grunt.file.expand(fset, fset.src);
@@ -100,15 +116,11 @@ module.exports = function(grunt)
             process.stdout.write(str);
         };
 
-        // Write parameters to file
-        tempFile = os.tmpdir() + 'rasterizing-settings.json';
-        fs.writeFileSync(tempFile, JSON.stringify(files));
-
         var spawn = grunt.util.spawn({
             cmd: phantomjs.path,
             args: [
                     path.resolve(__dirname, 'lib/svg2png.js'),
-                    tempFile
+                    writeTemporaryFile()
                 ]
             },
             function(err, result, code)
