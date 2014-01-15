@@ -8,11 +8,11 @@
 
 var fs = require('fs'),
     page = require('webpage').create(),
-    files = JSON.parse(phantom.args[0]),
-    total = files.length,
     next = 0,
-
+    files = JSON.parse(fs.read(phantom.args[0])),
+    total = files.length,
     file, svgdata, frag, svg, width, height;
+
 
 var nextFile = function()
 {

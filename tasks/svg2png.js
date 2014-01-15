@@ -10,7 +10,8 @@
 
 var phantomjs = require('phantomjs'),
     path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
+    os = require('os');
 
 module.exports = function(grunt)
 {
@@ -21,7 +22,8 @@ module.exports = function(grunt)
             start = new Date(),
             completed = 0,
             files = [],
-            total = 0;
+            total = 0,
+            tempFile;
 
         this.data.files.forEach(function(fset)
         {
@@ -98,11 +100,15 @@ module.exports = function(grunt)
             process.stdout.write(str);
         };
 
+        // Write parameters to file
+        tempFile = os.tmpdir() + 'rasterizing-settings.json';
+        fs.writeFileSync(tempFile, JSON.stringify(files));
+
         var spawn = grunt.util.spawn({
             cmd: phantomjs.path,
             args: [
                     path.resolve(__dirname, 'lib/svg2png.js'),
-                    JSON.stringify(files)
+                    tempFile
                 ]
             },
             function(err, result, code)
@@ -117,6 +123,7 @@ module.exports = function(grunt)
         {
             try {
                 var result = JSON.parse(buffer.toString());
+
                 if (result.status) {
                     completed++;
                     update();
