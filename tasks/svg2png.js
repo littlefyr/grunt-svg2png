@@ -84,16 +84,17 @@ module.exports = function(grunt)
                 return;
             }
 
-            process.stdout.clearLine();
-            process.stdout.cursorTo(0);
-
             var str = '',
                 arr = [],
                 count = total,
                 percent = ((100 / total) * completed).toFixed(2);
 
-            str += arr.reverse().join('');
-            str += style(percent + "%", 'green') + ' (' + ((new Date() - start) / 1000).toFixed(1) + 's) ';
+            str += style('.', 'green');
+
+            if (completed == count) {
+                str += style('\n>> ', 'green') + ((new Date() - start) / 1000).toFixed(1) + 's';
+            }
+
             process.stdout.write(str);
         };
 
