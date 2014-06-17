@@ -11,7 +11,8 @@
 var phantomjs = require('phantomjs'),
     path = require('path'),
     fs = require('fs'),
-    os = require('os');
+    os = require('os'),
+    tmp = require('temporary');
 
 module.exports = function(grunt)
 {
@@ -27,18 +28,12 @@ module.exports = function(grunt)
 
         // Write parameters to file
         function writeTemporaryFile() {
-            tempFile = os.tmpdir().split(path.sep);
+            var file = new tmp.File();
+            file.writeFileSync(JSON.stringify(files));
 
-            if (!tempFile[tempFile.length - 1]) {
-                tempFile.pop();
-            }
+            console.log(file.path);
 
-            tempFile.push('rasterizing-settings.json');
-            tempFile = tempFile.join(path.sep);
-
-            fs.writeFileSync(tempFile, JSON.stringify(files));
-
-            return tempFile;
+            return file.path;
         }
 
         this.data.files.forEach(function(fset)

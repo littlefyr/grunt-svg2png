@@ -23,7 +23,8 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "phantomjs": "~1.9.0"
+    "phantomjs": "~1.9.0",
+    "temporary": "0.0.8"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
@@ -51,7 +52,8 @@
     {
       "name": "David Bushell",
       "url": "http://dbushell.com/"
-    }, {
+    },
+    {
       "name": "Tim Chaptykov",
       "url": "http://chaptykov.ru"
     }
