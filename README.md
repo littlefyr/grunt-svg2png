@@ -3,6 +3,8 @@ grunt-svg2png
 
 Grunt plugin to rasterize SVG to PNG images using PhantomJS
 
+*This fork from Chaptykov/grunt-svg2png will handle rasterizing a single SVG into multiple sizes and locations. The goal is to allow the creation of mobile image assests (launch images, app icons, etc) from a single SVG.*
+
 ## Getting Started
 
 This plugin requires [Grunt](http://gruntjs.com/) `~0.4.1`
